@@ -21,7 +21,7 @@ namespace DmvAppointmentScheduler
         private static CustomerList ReadCustomerData()
         {
             string fileName = "CustomerData.json";
-            string path = Path.Combine(Environment.CurrentDirectory, @"InputData\", fileName);
+            string path = Path.Combine(Environment.CurrentDirectory, @"InputData/", fileName);
             string jsonString = File.ReadAllText(path);
             CustomerList customerData = JsonConvert.DeserializeObject<CustomerList>(jsonString);
             return customerData;
@@ -30,7 +30,7 @@ namespace DmvAppointmentScheduler
         private static TellerList ReadTellerData()
         {
             string fileName = "TellerData.json";
-            string path = Path.Combine(Environment.CurrentDirectory, @"InputData\", fileName);
+            string path = Path.Combine(Environment.CurrentDirectory, @"InputData/", fileName);
             string jsonString = File.ReadAllText(path);
             TellerList tellerData = JsonConvert.DeserializeObject<TellerList>(jsonString);
             return tellerData;
@@ -40,10 +40,18 @@ namespace DmvAppointmentScheduler
         {
             // Your code goes here .....
             // Re-write this method to be more efficient instead of a assigning all customers to the same teller
+            int size = tellers.Teller.Count;
+            int count = 0;
             foreach(Customer customer in customers.Customer)
             {
-                var appointment = new Appointment(customer, tellers.Teller[0]);
+                
+                var appointment = new Appointment(customer, tellers.Teller[count]);
                 appointmentList.Add(appointment);
+                count = count + 1;
+                if (count == (size - 1))
+                {
+                    count = 0;
+                }
             }
         }
         static void OutputTotalLengthToConsole()
