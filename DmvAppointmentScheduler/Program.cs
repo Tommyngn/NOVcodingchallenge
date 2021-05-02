@@ -40,48 +40,23 @@ namespace DmvAppointmentScheduler
         {
             // Your code goes here .....
             // Re-write this method to be more efficient instead of a assigning all customers to the same teller
-            int size = tellers.Teller.Count-1;
-            Console.WriteLine(size);
+            int size = tellers.Teller.Count;
             int count = 0;
-            int count2 = 0;
-            int exp = 2;
             foreach (Customer customer in customers.Customer)
             {
-                
-                if (count <= size)
-                {
-                    var appointment = new Appointment(customer, tellers.Teller[count]);
-                    appointmentList.Add(appointment);
-                    count = count + 1;
-                    appointmentList= appointmentList.OrderBy(i => i.duration).ToList();
-                }
-                else
-                {
-                    
-                    Console.WriteLine(count2);
-                    var appointment = new Appointment(customer, appointmentList[count2].teller);
-                    appointmentList.Add(appointment);
-                    appointmentList = appointmentList.OrderBy(i => i.duration).ToList();
-                    //double result = Math.Pow(size, exp);
-                    //Console.WriteLine(result);
-                    if (count2 == (size * exp))
-                    {
-                        Console.WriteLine("hitting");
-                        Console.WriteLine(exp);
-                        count2 = count2 - size;
-                        exp = exp + 1;
-                    }
-                    count2 = count2 + 1;
-                    
-                }
-                
-            }
-            
 
-            for (int i = 0; i<appointmentList.Count; i++)
-            {
-                Console.WriteLine(appointmentList[i].teller.id +" "+ appointmentList[i].duration);
+                var appointment = new Appointment(customer, tellers.Teller[count]);
+                appointmentList.Add(appointment);
+                count = count + 1;
+                if (count == size - 1)
+                {
+                    count = 0;
+                }
+                
+
             }
+
+
         }
         static void OutputTotalLengthToConsole()
         {
